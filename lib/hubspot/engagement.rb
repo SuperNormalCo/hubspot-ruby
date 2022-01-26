@@ -187,7 +187,7 @@ module Hubspot
           }
         }
 
-        data[:engagement][:timestamp] = (time.to_i) * 1000 if time
+        data[:engagement][:timestamp] = Time.now.to_i * 1000
         data[:engagement][:owner_id] = owner_id if owner_id
 
         super(data)
