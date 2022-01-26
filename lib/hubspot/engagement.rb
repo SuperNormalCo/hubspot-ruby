@@ -172,11 +172,10 @@ module Hubspot
       def create!(contact_ids, title, description, meetingNotes, owner_id = nil, startTime, endTime)
         data = {
           engagement: {
-            type: 'MEETING',
-            ownerId: owner_id
+            type: 'MEETING'
           },
           associations: {
-            contactIds: contact_ids,
+            contactIds: contact_ids
           },
           metadata: {
             body: description,
