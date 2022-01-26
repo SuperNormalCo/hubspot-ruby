@@ -151,7 +151,7 @@ module Hubspot
     end
   end
 
-  class EngagementCall < Engagement
+  class EngagementMeeting < Engagement
     def body
       metadata['body']
     end
@@ -169,20 +169,21 @@ module Hubspot
     end
 
     class << self
-      def create!(contact_vid, body, duration, owner_id = nil, deal_id = nil, status = 'COMPLETED', time = nil)
+      def create!(contact_vid, title, description, meetingNotes, owner_id = nil, startTime, endTime)
         data = {
           engagement: {
-            type: 'CALL'
+            type: 'MEETING'
           },
           associations: {
-            contactIds: [contact_vid],
-            dealIds: [deal_id],
-            ownerIds: [owner_id]
+            contactIds: contact_vid,
+            ownerIds: owner_id
           },
           metadata: {
-            body: body,
-            status: status,
-            durationMilliseconds: duration
+            body: description,
+            startTime: startTime,
+            endTime: endTime,
+            title: title,
+            internalMeetingNotes: meetingNotes
           }
         }
 
