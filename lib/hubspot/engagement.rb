@@ -175,8 +175,8 @@ module Hubspot
             type: 'MEETING'
           },
           associations: {
-            contactIds: contact_vid,
-            ownerIds: owner_id
+            contactIds: [contact_vid],
+            ownerIds: [owner_id]
           },
           metadata: {
             body: description,
