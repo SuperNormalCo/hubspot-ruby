@@ -176,6 +176,7 @@ module Hubspot
           },
           associations: {
             contactIds: contact_ids
+            ownerIds: [owner_id]
           },
           metadata: {
             body: description,
