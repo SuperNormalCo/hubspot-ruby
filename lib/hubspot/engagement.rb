@@ -19,7 +19,6 @@ module Hubspot
     attr_reader :metadata
 
     def initialize(response_hash)
-
       @engagement = response_hash["engagement"]
       @associations = response_hash["associations"]
       @attachments = response_hash["attachments"]
@@ -160,35 +159,28 @@ module Hubspot
       associations['contactIds']
     end
 
-    def company_ids
-      associations['companyIds']
-    end
-
-    def deal_ids
-      associations['dealIds']
-    end
-
     class << self
-      def create!(contact_ids, title, description, meetingNotes, owner_id = nil, startTime, endTime)
+      def create!(contact_ids, title, description, meeting_notes, start_time, end_time, owner_id = nil, deal_id = nil)
         data = {
           engagement: {
             type: 'MEETING'
           },
           associations: {
             contactIds: contact_ids,
-            ownerIds: [owner_id]
+            ownerIds: [owner_id],
           },
           metadata: {
             body: description,
-            startTime: startTime,
-            endTime: endTime,
+            startTime: start_time,
+            endTime: end_time,
             title: title,
-            internalMeetingNotes: meetingNotes
+            internalMeetingNotes: meeting_notes
           }
         }
 
         data[:engagement][:timestamp] = Time.now.to_i * 1000
         data[:engagement][:ownerId] = owner_id if owner_id
+        data[:associations][:dealIds] = [deal_id] if deal_id
 
         super(data)
       end
